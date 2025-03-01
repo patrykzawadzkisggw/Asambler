@@ -1,0 +1,65 @@
+name: Compile and Relase Programs
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest 
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install MinGW-w64
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y mingw-w64 nasm
+
+    - name: Compile asm files
+      run: |
+        nasm -o pierwiastek_procedure.o -f coff pierwiastek_procedure.asm
+        nasm -f bin -o proc.com proc.asm
+
+    - name: Compile pierwiastek
+      run: |
+        i686-w64-mingw32-gcc -m32 pierwiastek_procedure.o pierwiastek_interface.c -o pierwiastek.exe
+        
+    - name: Create tag
+      id: create_tag
+      run: |
+        TAG_NAME=$(date +'%Y%m%d%H%M%S')
+        echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
+        git tag $TAG_NAME
+        git push origin $TAG_NAME
+
+    - name: Create GitHub Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ env.TAG_NAME }}
+        release_name: Release ${{ env.TAG_NAME }}
+        draft: false
+        prerelease: false
+
+    - name: Upload pierwiastek Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./pierwiastek.exe
+        asset_name: pierwiastek.exe
+        asset_content_type: application/octet-stream
+
+    - name: Upload proc Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./proc.com
+        asset_name: proc.com
+        asset_content_type: application/octet-stream
