@@ -12,6 +12,12 @@ This project creates a `.com` file that allows you to find all common divisors o
 - Calculates and displays all common divisors of the entered numbers.
 - Supports interactive continuation or termination of the program.
 
+### How to compile
+
+'''bash
+nasm -f bin -o proc.com proc.asm
+'''
+
 ## Project 2: Square Root Finder (`pierwiastek_interface.c` and `pierwiastek_procedure.asm`) [Download pierwiastek.exe](https://github.com/patrykzawadzkisggw/Asambler/releases/latest/download/pierwiastek.exe)
 
 This project finds the square root of a selected number with a specified precision using Heron's algorithm. The project can be run on computers with Windows and operates in 32-bit mode.
@@ -23,3 +29,10 @@ This project finds the square root of a selected number with a specified precisi
 - Prompts the user to enter a floating-point number.
 - Prompts the user to enter the number of decimal places for precision (0-10).
 - Calculates and displays the square root of the entered number using Heron's algorithm.
+
+### How to compile
+
+'''bash
+nasm -o pierwiastek_procedure.o -f coff pierwiastek_procedure.asm
+gcc -m32 pierwiastek_procedure.o pierwiastek_interface.c -o pierwiastek.exe
+'''
