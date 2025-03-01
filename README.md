@@ -14,9 +14,9 @@ This project creates a `.com` file that allows you to find all common divisors o
 
 ### How to compile
 
-'''bash
+```bash
 nasm -f bin -o proc.com proc.asm
-'''
+```
 
 ## Project 2: Square Root Finder (`pierwiastek_interface.c` and `pierwiastek_procedure.asm`) [Download pierwiastek.exe](https://github.com/patrykzawadzkisggw/Asambler/releases/latest/download/pierwiastek.exe)
 
@@ -32,7 +32,7 @@ This project finds the square root of a selected number with a specified precisi
 
 ### How to compile
 
-'''bash
+```bash
 nasm -o pierwiastek_procedure.o -f coff pierwiastek_procedure.asm
 gcc -m32 pierwiastek_procedure.o pierwiastek_interface.c -o pierwiastek.exe
-'''
+```
