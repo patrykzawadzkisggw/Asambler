@@ -18,7 +18,7 @@ This project creates a `.com` file that allows you to find all common divisors o
 nasm -f bin -o proc.com proc.asm
 ```
 
-## Project 2: Square Root Finder (`pierwiastek_interface.c` and `pierwiastek_procedure.asm`) [Download pierwiastek.exe](https://github.com/patrykzawadzkisggw/Asambler/releases/latest/download/pierwiastek.exe)
+## Project 2: Square Root Finder (`pierwiastek_interface.c` and `pierwiastek_procedure.asm`)
 
 This project finds the square root of a selected number with a specified precision using Heron's algorithm. The project can be run on computers with Windows and operates in 32-bit mode.
 
